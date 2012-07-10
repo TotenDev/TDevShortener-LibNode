@@ -1,3 +1,10 @@
+//
+// TDevShortener — TDevShortener-LibNode
+// today is 7/10/12, it is now 19:25 PM
+// created by TotenDev
+// see LICENSE for details.
+//
+
 /*Modules*/
 var http = require('http');
 var TDShortenerDomain = "www.tdev.mobi";
