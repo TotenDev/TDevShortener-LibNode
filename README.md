@@ -8,6 +8,7 @@ TDevShortener has been developed by TotenDev team, as an internal system, with t
 =========
 This is a simple TDevShortener Wrapper in NodeJS.
 
+You will need your own service running [TDevShortener] (https://github.com/TotenDev/TDevShortener) to be able to use it.
 
 ##Usage##
 =========
