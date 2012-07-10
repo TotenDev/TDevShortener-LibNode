@@ -7,12 +7,12 @@
 
 /*Modules*/
 var http = require('http');
-var TDShortenerDomain = "www.tdev.mobi";
+var TDShortenerDomain = "xxx.com";
 
 /* Shortener UltilityClass */
-module.exports = function (address,callback) { return new TDevShortner(address,callback); }
+module.exports = function (address,callback) { return new TDevShortener(address,callback); }
 //Constructor
-var TDevShortener = function(address, callback) { TDevShortener.shortIt(address,function(data){ callback(data); }); }
+var TDevShortener = function(address, callback) { this.shortIt(address,callback); }
 
 /**
  *	run
@@ -28,11 +28,11 @@ TDevShortener.prototype.shortIt = function shortIt(url,callback){
 		res.setEncoding('utf8');
 		res.on('data', function(data){ 
 			if (data) callback(true,data); 
-			else callback(false,null);
+			else callback(false,"Server data is empty!");
 		});
-		res.on('error', function(err){ console.log("shorting error: " + err); callback(false,null); });
-	} );
-	req.on('error', function(err){  console.log("shorting error: " + err); callback(false,null); });
+		res.on('error', function(err){ console.log("shorting error: " + err); callback(false,err); });
+	});
+	req.on('error', function(err){  console.log("shorting error: " + err); callback(false,err); });
 	req.write(url);
 	req.end();
 }
