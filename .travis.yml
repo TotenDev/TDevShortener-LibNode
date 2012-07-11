@@ -3,5 +3,6 @@ node_js:
   - 0.4
   - 0.6
   - 0.7
-script: node TDevShortener.js
+  - 0.8
+script: node test.js
 

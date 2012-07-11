@@ -5,9 +5,12 @@
 // see LICENSE for details.
 //
 
+//CONFIG
+var TDShortenerDomain = "xxs.com";
+var TDShortenerPort = 80;
+
 /*Modules*/
 var http = require('http');
-var TDShortenerDomain = "xxx.com";
 
 /* Shortener UltilityClass */
 module.exports = function (address,callback) { return new TDevShortener(address,callback); }
@@ -20,19 +23,49 @@ var TDevShortener = function(address, callback) { this.shortIt(address,callback)
 TDevShortener.prototype.shortIt = function shortIt(url,callback){
 	var options = {
 		'host'		: TDShortenerDomain,
-		'port'		: 80,
+		'port'		: TDShortenerPort,
 		'path'		: "/create/",
-		'method'	: "POST"
+		'method'	: "POST",
+		'headers'	: {
+			'Content-Type': 'application/x-www-form-urlencoded',
+		    'Content-Length': url.length
+		}
 	};
+	var response = false;
 	var req = http.request( options, function(res){
 		res.setEncoding('utf8');
 		res.on('data', function(data){ 
-			if (data) callback(true,data); 
-			else callback(false,"Server data is empty!");
+			if (!response) {
+				response = true;
+				if (data && res.statusCode == 200) callback(true,data); 
+				else callback(false,"Server bad statusCode: " + res.statusCode);
+			}
 		});
-		res.on('error', function(err){ console.log("shorting error: " + err); callback(false,err); });
+		res.on('error', function(err){ 
+			if (!response) {
+				response = true;
+				callback(false,err);
+			}
+		});
+		res.on('end',function () { 
+			if (!response) {
+				response = true;
+				callback(false,null);
+			}	
+		});
 	});
-	req.on('error', function(err){  console.log("shorting error: " + err); callback(false,err); });
+	req.on('error', function(err){ 
+		if (!response) {
+			response = true;
+			callback(false,err);
+		}
+	});
+	req.on('end',function () { 
+		if (!response) {
+			response = true;
+			callback(false,null);
+		}	
+	});
 	req.write(url);
 	req.end();
 }
