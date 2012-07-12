@@ -15,7 +15,7 @@ No installation is needed, just use `TDevShortener.js` file.
 
 ## Configuration
 
-Change on `TDevShortener.js` the server Domain and port (It should be at beginnig of the file):
+Change on `TDevShortener.js`file, the server Domain and port (It should be at beginnig):
 
     //CONFIG
     var TDShortenerDomain = "xxs.com";
