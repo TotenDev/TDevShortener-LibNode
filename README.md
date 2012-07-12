@@ -13,6 +13,13 @@ NodeJS module to send a messages to [TotenDev's URL Shortener](https://github.co
 
 No installation is needed, just use `TDevShortener.js` file.
 
+## Configuration
+
+Change on `TDevShortener.js` the server Domain and port (It should be at beginnig of the file):
+
+    //CONFIG
+    var TDShortenerDomain = "xxs.com";
+    var TDShortenerPort = 80;
 
 ##Usage
 
