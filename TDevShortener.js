@@ -21,6 +21,7 @@ var TDevShortener = function(address, callback) { this.shortIt(address,callback)
  *	run
  **/
 TDevShortener.prototype.shortIt = function shortIt(url,callback){
+	var body = "link="+url;
 	var options = {
 		'host'		: TDShortenerDomain,
 		'port'		: TDShortenerPort,
@@ -28,7 +29,7 @@ TDevShortener.prototype.shortIt = function shortIt(url,callback){
 		'method'	: "POST",
 		'headers'	: {
 			'Content-Type': 'application/x-www-form-urlencoded',
-		    'Content-Length': url.length
+		    'Content-Length': body.length
 		}
 	};
 	var response = false;
@@ -66,6 +67,6 @@ TDevShortener.prototype.shortIt = function shortIt(url,callback){
 			callback(false,null);
 		}	
 	});
-	req.write(url);
+	req.write(body);
 	req.end();
 }
