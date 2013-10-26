@@ -3,6 +3,7 @@
 NodeJS module to send a messages to [TotenDev's URL Shortener](https://github.com/TotenDev/TDevShortener/)
 
 [![Build Status](https://secure.travis-ci.org/TotenDev/TDevShortener-LibNode.png?branch=master)](http://travis-ci.org/TotenDev/TDevShortener-LibNode)
+[![Code Climate](https://codeclimate.com/github/TotenDev/TDevShortener-LibNode.png)](https://codeclimate.com/github/TotenDev/TDevShortener-LibNode)
 
 ## Requirements
 
