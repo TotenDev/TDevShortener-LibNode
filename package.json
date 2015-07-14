@@ -1,8 +1,11 @@
 {
-	"name": "TDevShortener-LibNode",
-	"description": "TDevShortener-LibNode",
-	"version": "0.0.1",
-	"author": "TotenDev LTDA",
+	"name": "Shortener-LibNode",
+	"description": "Shortener-LibNode",
+	"version": "0.1.0",
+	"author": "TotenDev Studio",
 	"dependencies": {},
-	"engines": { "node":"0.6.x" }
+	"engines": { 
+		"node":"0.12.x",
+		"npm":"2.x.x"
+	}
 }

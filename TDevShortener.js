@@ -6,8 +6,8 @@
 //
 
 //CONFIG
-var TDShortenerDomain = "xxs.com";
-var TDShortenerPort = 80;
+var TDShortenerEndpointDomain = "tdev.mobi";
+var TDShortenerEndpointPort = 80;
 
 /*Modules*/
 var http = require('http');
@@ -23,49 +23,29 @@ var TDevShortener = function(address, callback) { this.shortIt(address,callback)
 TDevShortener.prototype.shortIt = function shortIt(url,callback){
 	var body = "link="+url;
 	var options = {
-		'host'		: TDShortenerDomain,
-		'port'		: TDShortenerPort,
+		'host'		: TDShortenerEndpointDomain,
+		'port'		: TDShortenerEndpointPort,
 		'path'		: "/create/",
 		'method'	: "POST",
 		'headers'	: {
 			'Content-Type': 'application/x-www-form-urlencoded',
-		    'Content-Length': body.length
+			'Content-Length': body.length
 		}
 	};
-	var response = false;
+	var responded = false;
 	var req = http.request( options, function(res){
-		res.setEncoding('utf8');
-		res.on('data', function(data){ 
-			if (!response) {
-				response = true;
-				if (data && res.statusCode == 200) callback(true,data); 
+		var respContainer = "";
+		res.on('data', function(data){ respContainer += data; });
+		res.on('end',function () { 
+			if (!responded) {
+				responded = true;
+				if (respContainer && res.statusCode == 200) callback(true,respContainer); 
 				else callback(false,"Server bad statusCode: " + res.statusCode);
 			}
 		});
-		res.on('error', function(err){ 
-			if (!response) {
-				response = true;
-				callback(false,err);
-			}
-		});
-		res.on('end',function () { 
-			if (!response) {
-				response = true;
-				callback(false,null);
-			}	
-		});
 	});
 	req.on('error', function(err){ 
-		if (!response) {
-			response = true;
-			callback(false,err);
-		}
-	});
-	req.on('end',function () { 
-		if (!response) {
-			response = true;
-			callback(false,null);
-		}	
+		if (!responded) { responded = true; callback(false,err); }
 	});
 	req.write(body);
 	req.end();
